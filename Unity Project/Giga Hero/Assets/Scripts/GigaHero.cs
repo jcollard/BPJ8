@@ -13,6 +13,7 @@ namespace Assets.Scripts
         public GigaButton[] buttons;
 
         public Animator FrontLayerAnimator;
+        public SpriteRenderer BackLayer;
 
         private float shakeUntil;
 
@@ -34,9 +35,14 @@ namespace Assets.Scripts
                 shakeUntil = Time.time + 1F;
             }
 
-            if(result == ActionResult.CRACK)
+            if(result == ActionResult.LEVEL_UP)
             {
                 FrontLayerAnimator.SetBool("isCracking", true);
+                if(_gameState.LevelUp())
+                {
+                    Transition t = _gameState.Hero.GetTransition();
+                    t.StartTransition();
+                }
             }
         }
 
