@@ -19,6 +19,9 @@ namespace Assets.Scripts
             SetActions(screen);
         }
 
+        public int TicksPerMinute = 60;
+        public float lastTick;
+
         public ActionMenu ActionMenu;
 
         public GigaButton[] buttons;
@@ -28,8 +31,6 @@ namespace Assets.Scripts
         public PlayScreen PlayScreen;
         private Animator _frontAnimator;
         private SpriteRenderer _backLayerRenderer;
-
-
 
         // Use this for initialization
         void Start()
@@ -43,6 +44,16 @@ namespace Assets.Scripts
             _gameState = new GameState(this, PlayScreen);
             SetActiveScreen(_gameState);
 
+        }
+
+        private void Update()
+        {
+            float nextTick = lastTick + (TicksPerMinute/60);
+            if(Time.time > nextTick)
+            {
+                HandleResult(GameState.Tick());
+                lastTick = Time.time;
+            }
         }
 
         internal void DeactivateAllScreens()

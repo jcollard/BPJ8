@@ -23,8 +23,13 @@ namespace Assets.Scripts
                 throw new NullReferenceException("PlayScreen is null");
             }
             this._engine = engine;
-            this._hero = new Baby();
+            this._hero = new Egg();
             this._playScreen = playScreen;
+        }
+
+        public ActionResult Tick()
+        {
+            return _hero.Tick();
         }
 
         public ActionResult Poke()

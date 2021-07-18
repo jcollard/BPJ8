@@ -1618,9 +1618,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1269625441}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d74a0f8e98824504fbf784ca5896573d, type: 3}
+  m_Script: {fileID: 11500000, guid: cd338d64a2862f7468849a1e050d23f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FoodOption: 0
 --- !u!212 &1269625444
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1969,9 +1970,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1445284026}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d74a0f8e98824504fbf784ca5896573d, type: 3}
+  m_Script: {fileID: 11500000, guid: cd338d64a2862f7468849a1e050d23f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FoodOption: 2
 --- !u!212 &1445284029
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2488,9 +2490,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1713163084}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d74a0f8e98824504fbf784ca5896573d, type: 3}
+  m_Script: {fileID: 11500000, guid: cd338d64a2862f7468849a1e050d23f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FoodOption: 1
 --- !u!1 &1742465735
 GameObject:
   m_ObjectHideFlags: 0

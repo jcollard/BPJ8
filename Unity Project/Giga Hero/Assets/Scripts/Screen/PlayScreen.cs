@@ -44,6 +44,7 @@ public class PlayScreen : MonoBehaviour, IScreen
     // Update is called once per frame
     void Update()
     {
+        Animator.runtimeAnimatorController = engine.GameState.Hero.GetAnimatorController();
         engine.GameState.Hero.HandleAnimator(Animator, engine.GameState);
     }
 }
