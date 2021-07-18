@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class FeedSelector : Selector
+    public class ItemMenuSelector : Selector
     {
 
-        public ItemMenu FoodMenu;
+        public ItemMenu ItemMenu;
 
         public override ActionResult Select(GigaHero engine)
         {
-            FoodMenu.Activate(engine);
+            ItemMenu.Activate(engine);
             return ActionResult.NOTHING;
         }
     }

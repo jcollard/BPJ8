@@ -41,7 +41,7 @@ namespace Assets.Scripts
             }
 
             _gameState = new GameState(this, PlayScreen);
-            SetActions(_gameState);
+            SetActiveScreen(_gameState);
 
         }
 
