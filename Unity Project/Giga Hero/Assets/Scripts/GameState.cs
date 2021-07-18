@@ -1,22 +1,26 @@
-﻿using System;
+﻿using Assets.Scripts.Screen;
+using System;
 using System.Collections;
 using UnityEngine;
 
 
 namespace Assets.Scripts
 {
-    public class GameState
+    public class GameState : IScreen
     {
 
         private Hero _hero;
         private readonly GigaHero _engine;
+        private readonly GameObject _gameObject;
 
         public Hero Hero { get { return _hero; } }
 
-        public GameState(GigaHero engine)
+        public GameState(GigaHero engine, GameObject gameObject)
         {
             this._engine = engine;
             this._hero = new Egg();
+            this._gameObject = gameObject;
+            GigaHero.Screens.Add(this._gameObject);
         }
 
         public ActionResult Poke()
@@ -35,6 +39,30 @@ namespace Assets.Scripts
             return false;
         }
 
+        public void Activate(GigaHero engine)
+        {
+            engine.SetActiveScreen(this);
+        }
+
+        public Func<GigaHero, ActionResult> GetActionA()
+        {
+            return ButtonAction.Poke;
+        }
+
+        public Func<GigaHero, ActionResult> GetActionB()
+        {
+            return ButtonAction.OpenActionMenu;
+        }
+
+        public Func<GigaHero, ActionResult> GetActionC()
+        {
+            return ButtonAction.Poke;
+        }
+
+        public GameObject GetGameObject()
+        {
+            return _gameObject;
+        }
     }
 
     public class ActionResult

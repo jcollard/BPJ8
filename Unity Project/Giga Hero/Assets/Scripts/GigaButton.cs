@@ -27,8 +27,6 @@ public class GigaButton : MonoBehaviour
     private void OnMouseUp()
     {
         this.spriteRenderer.sprite = Up;
-        Debug.Log("Action: " + Action);
-        Debug.Log("Engine: " + Engine);
         Engine.HandleResult(Action.Invoke(Engine));
     }
 }
