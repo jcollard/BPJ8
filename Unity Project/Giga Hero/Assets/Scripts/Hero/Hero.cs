@@ -15,6 +15,9 @@ namespace Assets.Scripts
         }
 
         public abstract void HandleAnimator(Animator animator, GameState gameState);
+
+        public abstract RuntimeAnimatorController GetAnimatorController();
+
     }
 
     public enum BabyState
@@ -46,6 +49,11 @@ namespace Assets.Scripts
         public override void HandleAnimator(Animator animator, GameState gameState)
         {
             animator.SetBool("isPacifier", true);
+        }
+
+        public override RuntimeAnimatorController GetAnimatorController()
+        {
+            return ObjectLookup.BabyAnimatorController;
         }
     }
     public class Egg : Hero
@@ -85,6 +93,11 @@ namespace Assets.Scripts
         public override Transition GetTransition()
         {
             return ObjectLookup.EggToBaby;
+        }
+
+        public override RuntimeAnimatorController GetAnimatorController()
+        {
+            return ObjectLookup.EggAnimatorController;
         }
     }
 }

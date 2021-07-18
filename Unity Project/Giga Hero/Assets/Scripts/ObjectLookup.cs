@@ -6,12 +6,18 @@ public class ObjectLookup : MonoBehaviour
 {
 
     public Transition EggToBabyTransition;
+    public RuntimeAnimatorController _BabyAnimatorController;
+    public RuntimeAnimatorController _EggAnimatorController;
 
     public static Transition EggToBaby;
+    public static RuntimeAnimatorController BabyAnimatorController;
+    public static RuntimeAnimatorController EggAnimatorController;
 
     public void Start()
     {
-        EggToBaby = EggToBabyTransition;   
+        EggToBaby = EggToBabyTransition;
+        BabyAnimatorController = _BabyAnimatorController;
+        EggAnimatorController = _EggAnimatorController;
     }
 
 

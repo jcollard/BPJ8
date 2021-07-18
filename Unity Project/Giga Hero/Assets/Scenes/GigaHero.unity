@@ -1050,6 +1050,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EggToBabyTransition: {fileID: 898964110}
+  _BabyAnimatorController: {fileID: 9100000, guid: 5e4eceeb412674544abda47d7d448a7b,
+    type: 2}
+  _EggAnimatorController: {fileID: 9100000, guid: 7016bf1d2da6e7a4a9e4ac2449183362,
+    type: 2}
 --- !u!4 &844888355
 Transform:
   m_ObjectHideFlags: 0
