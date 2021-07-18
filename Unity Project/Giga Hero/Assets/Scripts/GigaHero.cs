@@ -25,13 +25,10 @@ namespace Assets.Scripts
 
         public static readonly ISet<GameObject> Screens = new HashSet<GameObject>();
 
-        public GameObject FrontLayer;
-        public GameObject BackLayer;
-        public GameObject PlayScreen;
+        public PlayScreen PlayScreen;
         private Animator _frontAnimator;
         private SpriteRenderer _backLayerRenderer;
 
-        private float shakeUntil;
 
 
         // Use this for initialization
@@ -46,10 +43,6 @@ namespace Assets.Scripts
             _gameState = new GameState(this, PlayScreen);
             SetActions(_gameState);
 
-            _frontAnimator = FrontLayer.GetComponent<Animator>();
-            _backLayerRenderer = BackLayer.GetComponent<SpriteRenderer>();
-            
-
         }
 
         internal void DeactivateAllScreens()
@@ -62,26 +55,7 @@ namespace Assets.Scripts
 
         public void HandleResult(ActionResult result)
         {
-            if(result == ActionResult.SHAKE && shakeUntil < Time.time)
-            {
-                shakeUntil = Time.time + 1F;
-            }
-
-            if(result == ActionResult.LEVEL_UP)
-            {
-                _frontAnimator.SetBool("isCracking", true);
-                if(_gameState.LevelUp())
-                {
-                    Transition t = _gameState.Hero.GetTransition();
-                    t.StartTransition();
-                }
-            }
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            _frontAnimator.SetBool("isShaking", shakeUntil > Time.time);
+            result.PerformResult(GameState);
         }
 
         internal void SetActions(IScreen actionMenu)

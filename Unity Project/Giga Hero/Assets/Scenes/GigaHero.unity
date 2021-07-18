@@ -373,9 +373,7 @@ MonoBehaviour:
   - {fileID: 1985236205}
   - {fileID: 392968522}
   - {fileID: 1019087190}
-  FrontLayer: {fileID: 1843112817}
-  BackLayer: {fileID: 808259261}
-  PlayScreen: {fileID: 1120569775}
+  PlayScreen: {fileID: 1120569777}
 --- !u!1 &299082768
 GameObject:
   m_ObjectHideFlags: 0
@@ -998,7 +996,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 898964109}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6da964feba63e9148ba0498b7b7bdeec, type: 3}
+  m_Script: {fileID: 11500000, guid: 86b622a5e779ed84e8d07a047b1167c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   endTime: 0
@@ -1008,6 +1006,7 @@ MonoBehaviour:
   startScale: {x: 0.25, y: 0.25, z: 0.25}
   FrontLayerAnimator: {fileID: 1843112818}
   NextController: {fileID: 9100000, guid: 5e4eceeb412674544abda47d7d448a7b, type: 2}
+  Animator: {fileID: 1843112818}
 --- !u!212 &898964111
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1234,6 +1233,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1120569776}
+  - component: {fileID: 1120569777}
   m_Layer: 0
   m_Name: PlayScreen
   m_TagString: Untagged
@@ -1257,6 +1257,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1120569777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120569775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b2efb0fe94cf54f8dfebf4c718396f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 1843112818}
+  engine: {fileID: 240139651}
 --- !u!1 &1124908121
 GameObject:
   m_ObjectHideFlags: 0

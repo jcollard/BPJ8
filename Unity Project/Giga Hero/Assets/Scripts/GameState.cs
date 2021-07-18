@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Screen;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -11,16 +12,19 @@ namespace Assets.Scripts
 
         private Hero _hero;
         private readonly GigaHero _engine;
-        private readonly GameObject _gameObject;
+        private readonly PlayScreen _playScreen;
 
         public Hero Hero { get { return _hero; } }
 
-        public GameState(GigaHero engine, GameObject gameObject)
+        public GameState(GigaHero engine, PlayScreen playScreen)
         {
+            if(playScreen == null)
+            {
+                throw new NullReferenceException("PlayScreen is null");
+            }
             this._engine = engine;
             this._hero = new Egg();
-            this._gameObject = gameObject;
-            GigaHero.Screens.Add(this._gameObject);
+            this._playScreen = playScreen;
         }
 
         public ActionResult Poke()
@@ -28,15 +32,15 @@ namespace Assets.Scripts
             return _hero.Poke();
         }
 
-        public bool LevelUp()
+        public void LevelUp()
         {
-            Hero nextHero = _hero.LevelUp();
-            if(nextHero != _hero)
+            Hero nextHero = _hero.LevelUp(this);
+            if (nextHero != _hero)
             {
-                this._hero = nextHero;
-                return true;
+                Transition t = _hero.GetTransition();
+                t.StartTransition((_) => this._hero = nextHero);
             }
-            return false;
+
         }
 
         public void Activate(GigaHero engine)
@@ -61,14 +65,13 @@ namespace Assets.Scripts
 
         public GameObject GetGameObject()
         {
-            return _gameObject;
+            return _playScreen.gameObject;
         }
     }
 
     public class ActionResult
     {
-        public static ActionResult SHAKE = new ActionResult();
-        public static ActionResult LEVEL_UP = new ActionResult();
+        public static ActionResult LEVEL_UP = new LevelUpResult();
         public static ActionResult NOTHING = new ActionResult();
 
         public static Func<GigaHero, ActionResult> Nothing(Action<GigaHero> action) {
@@ -79,18 +82,34 @@ namespace Assets.Scripts
             };
         }
 
+        public virtual void PerformResult(GameState gameState)
+        {
+
+        }
+
+    }
+
+
+    public class LevelUpResult : ActionResult
+    {
+        public override void PerformResult(GameState gameState)
+        {
+            gameState.LevelUp();
+        }
     }
 
     public abstract class Hero
     {
 
         public abstract ActionResult Poke();
-        public abstract Hero LevelUp();
+        public abstract Hero LevelUp(GameState state);
 
         public virtual Transition GetTransition()
         {
             return null;
         }
+
+        public abstract void HandleAnimator(Animator animator, GameState gameState);
     }
 
     public enum BabyState
@@ -108,15 +127,20 @@ namespace Assets.Scripts
             return ActionResult.NOTHING;
         }
 
-        public override Hero LevelUp()
+        public override Hero LevelUp(GameState state)
         {
             return this;
         }
 
         public override Transition GetTransition()
         {
-            Debug.Log("Getting Transition Sprite");
-            return ObjectLookup.EggToBaby;
+            //TODO
+            return null;
+        }
+
+        public override void HandleAnimator(Animator animator, GameState gameState)
+        {
+            animator.SetBool("isPacifier", true);
         }
     }
     public class Egg : Hero
@@ -124,6 +148,7 @@ namespace Assets.Scripts
 
         private bool isCracking;
         private int poked = 0;
+        private float shakeUntil;
 
         public override ActionResult Poke()
         {
@@ -134,14 +159,28 @@ namespace Assets.Scripts
                 return ActionResult.LEVEL_UP;
             }
             poked++;
-            return ActionResult.SHAKE;
+            if (Time.time > shakeUntil)
+            {
+                shakeUntil = Time.time + 1.0F;
+            }
+            return ActionResult.NOTHING;
         }
 
-        public override Hero LevelUp()
+        public override Hero LevelUp(GameState state)
         {
             return new Baby();
         }
 
+        public override void HandleAnimator(Animator animator, GameState gameState)
+        {
+            animator.SetBool("isCracking", this.isCracking);
+            animator.SetBool("isShaking", shakeUntil > Time.time);
+        }
+
+        public override Transition GetTransition()
+        {
+            return ObjectLookup.EggToBaby;
+        }
     }
 
 }
