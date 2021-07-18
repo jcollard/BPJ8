@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+
 
 namespace Assets.Scripts
 {
@@ -40,6 +42,14 @@ namespace Assets.Scripts
         public static ActionResult SHAKE = new ActionResult();
         public static ActionResult LEVEL_UP = new ActionResult();
         public static ActionResult NOTHING = new ActionResult();
+
+        public static Func<GigaHero, ActionResult> Nothing(Action<GigaHero> action) {
+            return (engine) =>
+            {
+                action.Invoke(engine);
+                return NOTHING;
+            };
+        }
 
     }
 
@@ -89,7 +99,7 @@ namespace Assets.Scripts
 
         public override ActionResult Poke()
         {
-            int chance = Random.Range(0, 100) + poked;
+            int chance = UnityEngine.Random.Range(0, 100) + poked;
             if(poked > 3 && chance > 75 && !this.isCracking)
             {
                 this.isCracking = true;

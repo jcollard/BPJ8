@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class GigaButton : MonoBehaviour
 
     public Sprite Up;
     public Sprite Down;
-    public ButtonAction Action { get; set; }
+    public Func<GigaHero, ActionResult> Action { get; set; }
     public GigaHero Engine { get; set; }
     
     private SpriteRenderer spriteRenderer;
@@ -16,7 +17,6 @@ public class GigaButton : MonoBehaviour
     private void Start()
     {
         this.spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
-        Action = new PokeButtonAction();
     }
 
     private void OnMouseDown()
@@ -27,6 +27,8 @@ public class GigaButton : MonoBehaviour
     private void OnMouseUp()
     {
         this.spriteRenderer.sprite = Up;
-        Engine.HandleResult(Action.PerformAction(Engine.GameState));
+        Debug.Log("Action: " + Action);
+        Debug.Log("Engine: " + Engine);
+        Engine.HandleResult(Action.Invoke(Engine));
     }
 }
