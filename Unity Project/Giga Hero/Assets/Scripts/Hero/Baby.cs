@@ -40,7 +40,7 @@ namespace Assets.Scripts
 
         public override Hero LevelUp(GameState state)
         {
-            return this;
+            return new Teen(this);
         }
 
         public override ActionResult Tick()
@@ -96,8 +96,7 @@ namespace Assets.Scripts
 
         public override Transition GetTransition()
         {
-            //TODO
-            return null;
+            return ObjectLookup.BabyToTeen;
         }
 
         public override void HandleAnimator(Animator animator, GameState gameState)

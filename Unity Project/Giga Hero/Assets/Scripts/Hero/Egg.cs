@@ -15,7 +15,6 @@ namespace Assets.Scripts
             int chance = UnityEngine.Random.Range(0, 100) + poked;
             if (poked > 3 && chance > 75 && !this.isCracking)
             {
-                this.isCracking = true;
                 return ActionResult.LEVEL_UP;
             }
             poked++;
@@ -38,6 +37,7 @@ namespace Assets.Scripts
 
         public override Hero LevelUp(GameState state)
         {
+            this.isCracking = true;
             return new Baby(this);
         }
 
