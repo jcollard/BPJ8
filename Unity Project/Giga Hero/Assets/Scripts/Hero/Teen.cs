@@ -21,6 +21,7 @@ namespace Assets.Scripts
         private int _energy = 60;
         private int _sleep = 0;
         private int SLEEP_TICKS = 60;
+        private float _stopEatingAt;
 
         public Teen()
         {
@@ -45,7 +46,10 @@ namespace Assets.Scripts
         public override ActionResult Tick()
         {
             base.Tick();
-            
+            if(_stopEatingAt < Time.time && _state == TeenState.EATING)
+            {
+                _state = TeenState.IDLE;
+            }
             return ActionResult.NOTHING;
         }
 
@@ -74,6 +78,8 @@ namespace Assets.Scripts
 
         internal override ActionResult Feed(Food food)
         {
+            _state = TeenState.EATING;
+            _stopEatingAt = Time.time + 1;
             _str += food.STR;
             _dex += food.DEX;
             _int += food.INT;

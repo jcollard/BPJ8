@@ -2641,7 +2641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endTime: 0
   startTime: 0
-  duration: 5
+  duration: 1
   endScale: {x: 1, y: 1, z: 1}
   startScale: {x: 0.25, y: 0.25, z: 0.25}
   FrontLayerAnimator: {fileID: 1843112818}
