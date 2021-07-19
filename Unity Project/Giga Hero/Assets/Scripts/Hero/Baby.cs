@@ -19,6 +19,9 @@ namespace Assets.Scripts
         private int _nutrition = 0;
         private int _saturation = 80;
         private int _maxSaturation = 100;
+        private int _energy = 60;
+        private int _sleep = 0;
+        private int SLEEP_TICKS = 60;
 
         public Baby()
         {
@@ -43,7 +46,25 @@ namespace Assets.Scripts
         public override ActionResult Tick()
         {
             base.Tick();
-            _saturation--;
+            if(_sleep > 0) //If the baby is sleeping
+            {
+                //TODO: If the baby is hungry, they shouldn't restore energy
+                _energy++;
+                _sleep--;
+            } else if (_energy > 0) // If the baby is awake
+            {
+                _energy--;
+                _saturation--;
+                _saturation = Mathf.Max(0, _saturation);
+                if (_saturation <= 0)
+                {
+                    _nutrition--;
+                    _nutrition = Mathf.Max(0, _nutrition);
+                }
+            } else // Transition to sleeping
+            {
+                _sleep = SLEEP_TICKS;
+            }
             checkState();
             return ActionResult.NOTHING;
         }
@@ -54,14 +75,18 @@ namespace Assets.Scripts
             {
                 _state = BabyState.CRYING;
             }
-            else if (_saturation < 25)
+            else if (_saturation <=  0)
             {
                 _state = BabyState.CRYING;
             }
-            else if (_saturation < 50)
+            else if (_saturation <= 25)
             {
                 _state = BabyState.HUNGRY;
-            } else
+            } else if (_sleep > 0)
+            {
+                _state = BabyState.SLEEPING;
+            }
+            else
             {
                 _state = isPacifier ? BabyState.PACIFIER : BabyState.HAPPY;
             }
