@@ -127,6 +127,10 @@ namespace Assets.Scripts
             return ActionResult.NOTHING;
         }
 
-
+        public override ActionResult Train(Training training)
+        {
+            //TODO: Make baby cry
+            return ActionResult.NOTHING;
+        }
     }
 }

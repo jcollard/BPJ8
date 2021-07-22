@@ -38,12 +38,12 @@ namespace Assets.Scripts.Screen
 
         public Func<GigaHero, ActionResult> GetActionB()
         {
-            return ActionResult.Nothing((engine) => engine.ActionMenu.Activate(engine));
+            return ActionResult.Nothing((engine) => Next());
         }
 
         public Func<GigaHero, ActionResult> GetActionC()
         {
-            return ActionResult.Nothing((engine) => Next());
+            return ActionResult.Nothing((engine) => engine.ActionMenu.Activate(engine));
         }
 
         public GameObject GetGameObject()

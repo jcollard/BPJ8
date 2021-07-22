@@ -31,6 +31,8 @@ namespace Assets.Scripts
 
         public abstract RuntimeAnimatorController GetAnimatorController();
 
+        public abstract ActionResult Train(Training training);
+
         public virtual ActionResult Tick()
         {
             _age++;

@@ -3,30 +3,11 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class Acrobat : Hero
+    public class Acrobat : SuperHero
     {
         public override RuntimeAnimatorController GetAnimatorController()
         {
             return ObjectLookup.AcrobatAnimatorController;
-        }
-
-        public override void HandleAnimator(Animator animator, GameState gameState)
-        {
-        }
-
-        public override Hero LevelUp(GameState state)
-        {
-            return this;
-        }
-
-        public override ActionResult Poke()
-        {
-            return ActionResult.NOTHING;
-        }
-
-        internal override ActionResult Feed(Food food)
-        {
-            return ActionResult.NOTHING;
         }
     }
 }

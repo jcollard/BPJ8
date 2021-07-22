@@ -5,7 +5,7 @@ namespace Assets.Scripts
 {
     public enum TeenState
     {
-        IDLE, EATING
+        IDLE, EATING, JOG, STUDY, WEIGHTS
     }
 
     public class Teen : Hero
@@ -21,7 +21,6 @@ namespace Assets.Scripts
         private int _energy = 60;
         private int _sleep = 0;
         private int SLEEP_TICKS = 60;
-        private float _stopEatingAt;
 
         public Teen()
         {
@@ -38,6 +37,7 @@ namespace Assets.Scripts
         public override ActionResult Poke()
         {
             //TODO: Scowl
+            _state = TeenState.IDLE;
             return ActionResult.NOTHING;
         }
 
@@ -61,10 +61,6 @@ namespace Assets.Scripts
         public override ActionResult Tick()
         {
             base.Tick();
-            if(_stopEatingAt < Time.time && _state == TeenState.EATING)
-            {
-                _state = TeenState.IDLE;
-            }
             return ActionResult.NOTHING;
         }
 
@@ -84,6 +80,9 @@ namespace Assets.Scripts
         public override void HandleAnimator(Animator animator, GameState gameState)
         {
             animator.SetBool("isEating", _state == TeenState.EATING);
+            animator.SetBool("isRunning", _state == TeenState.EATING);
+            animator.SetBool("isReading", _state == TeenState.EATING);
+            animator.SetBool("isLifting", _state == TeenState.EATING);
         }
 
         public override RuntimeAnimatorController GetAnimatorController()
@@ -94,7 +93,6 @@ namespace Assets.Scripts
         internal override ActionResult Feed(Food food)
         {
             _state = TeenState.EATING;
-            _stopEatingAt = Time.time + 1;
             _str += food.STR;
             _dex += food.DEX;
             _int += food.INT;
@@ -104,6 +102,10 @@ namespace Assets.Scripts
             return ActionResult.NOTHING;
         }
 
-
+        public override ActionResult Train(Training training)
+        {
+            _state = training.TeenState;
+            return ActionResult.NOTHING;
+        }
     }
 }

@@ -8,7 +8,6 @@ namespace Assets.Scripts
     public class ActionMenu : MonoBehaviour, IScreen
     {
 
-        public GameObject SelectorsObject;
         public Selector[] Selectors;
         private Selector _selected;
         private int ix = 0;
@@ -41,6 +40,10 @@ namespace Assets.Scripts
         {
             engine.SetActiveScreen(this);
             this._selected = Selectors[ix];
+            foreach(Selector s in Selectors)
+            {
+                s.gameObject.SetActive(false);
+            }
             this._selected.gameObject.SetActive(true);
             
         }
@@ -52,12 +55,12 @@ namespace Assets.Scripts
 
         public Func<GigaHero, ActionResult> GetActionB()
         {
-            return _exitAction;
+            return _nextAction;
         }
 
         public Func<GigaHero, ActionResult> GetActionC()
         {
-            return _nextAction;
+            return _exitAction;
         }
 
         public GameObject GetGameObject()

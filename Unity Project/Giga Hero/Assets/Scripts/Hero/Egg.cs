@@ -62,5 +62,10 @@ namespace Assets.Scripts
             //TODO: Show food being thrown? 
             return Poke();
         }
+
+        public override ActionResult Train(Training training)
+        {
+            return Poke();
+        }
     }
 }
