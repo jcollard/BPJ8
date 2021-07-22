@@ -9,6 +9,7 @@ public class GigaButton : MonoBehaviour
 
     public Sprite Up;
     public Sprite Down;
+    public AudioSource Click;
     public Func<GigaHero, ActionResult> Action { get; set; }
     public GigaHero Engine { get; set; }
     
@@ -16,6 +17,7 @@ public class GigaButton : MonoBehaviour
 
     private void Start()
     {
+        OptionsMenu.AddSFX(Click);
         this.spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
     }
 
@@ -26,6 +28,8 @@ public class GigaButton : MonoBehaviour
 
     private void OnMouseUp()
     {
+
+        this.Click.Play();
         this.spriteRenderer.sprite = Up;
         Engine.HandleResult(Action.Invoke(Engine));
     }

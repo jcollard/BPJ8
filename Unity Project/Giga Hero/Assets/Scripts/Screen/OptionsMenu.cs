@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using Assets.Scripts.Screen;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 namespace Assets.Scripts
 {
@@ -13,21 +14,35 @@ namespace Assets.Scripts
 
     public class OptionsMenu : MonoBehaviour, IScreen
     {
-
+        public static ISet<AudioSource> ALL_SFX = new HashSet<AudioSource>();
+        public static float defaultVolume = 0.30f;
+        public static OptionsMenu INSTANCE;
         public OptionTypeSelector[] Selectors;
         public int Speed = 1;
-        public float SFX = 0.5f;
+        public float SFX = defaultVolume;
         public float Music = 0.5f;
 
         public Text GameSpeed;
         public Text SoundFX;
+
+        internal static void AddSFX(AudioSource audioSource)
+        {
+            if(audioSource != null)
+            {
+                audioSource.volume = INSTANCE == null ? defaultVolume : INSTANCE.SFX;
+                ALL_SFX.Add(audioSource);
+            }
+        }
+
         public Text Volume;
+        public AudioSource MusicAudioSource;
 
         private OptionTypeSelector _selected;
         private int ix = 0;
 
         private void Start()
         {
+            INSTANCE = this;
             GigaHero.Screens.Add(this.gameObject);
         }
         
@@ -67,7 +82,8 @@ namespace Assets.Scripts
                     this.Music -= 0.10F;
                     this.Music = Mathf.Max(0, this.Music);
                     int percentage = (int)(Music * 100);
-                    this.Volume.text = "MUSIC: " + percentage;
+                    this.MusicAudioSource.volume = this.Music;
+                    this.Volume.text = "MUSIC: " + percentage + "%";
                     return;
                 }
                 if (_selected.OptionType == OptionsMenuType.SFX)
@@ -75,7 +91,11 @@ namespace Assets.Scripts
                     this.SFX -= 0.10F;
                     this.SFX = Mathf.Max(0, this.SFX);
                     int percentage = (int)(this.SFX * 100);
-                    this.SoundFX.text = "SFX: " + percentage;
+                    this.SoundFX.text = "SFX: " + percentage + "%";
+                    foreach (AudioSource audio in ALL_SFX)
+                    {
+                        audio.volume = this.SFX;
+                    }
                     return;
                 }
                 if (_selected.OptionType == OptionsMenuType.SPEED)
@@ -108,7 +128,8 @@ namespace Assets.Scripts
                     this.Music += 0.10F;
                     this.Music = Mathf.Min(1, this.Music);
                     int percentage = (int)(Music * 100);
-                    this.Volume.text = "MUSIC: " + percentage;
+                    this.MusicAudioSource.volume = this.Music;
+                    this.Volume.text = "MUSIC: " + percentage + "%";
                     return;
                 }
                 if (_selected.OptionType == OptionsMenuType.SFX)
@@ -116,7 +137,11 @@ namespace Assets.Scripts
                     this.SFX += 0.10F;
                     this.SFX = Mathf.Min(1, this.SFX);
                     int percentage = (int)(this.SFX * 100);
-                    this.SoundFX.text = "SFX: " + percentage;
+                    this.SoundFX.text = "SFX: " + percentage + "%";
+                    foreach (AudioSource audio in ALL_SFX)
+                    {
+                        audio.volume = this.SFX;
+                    }
                     return;
                 }
                 if (_selected.OptionType == OptionsMenuType.SPEED)

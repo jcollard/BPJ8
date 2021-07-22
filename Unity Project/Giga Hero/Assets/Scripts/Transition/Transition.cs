@@ -13,7 +13,13 @@ public class Transition : MonoBehaviour
     public Vector3 startScale = new Vector3(0.25F, 0.25F, 0.25F);
     public Animator FrontLayerAnimator;
     public RuntimeAnimatorController NextController;
+    public AudioSource AudioSource;
     private Action<object> _onFinish;
+
+    public void Start()
+    {
+        OptionsMenu.AddSFX(AudioSource);
+    }
 
     public void Update()
     {
@@ -34,6 +40,10 @@ public class Transition : MonoBehaviour
         this.transform.position = new Vector3(0, 0, this.transform.position.z);
         this.gameObject.SetActive(true);
         this._onFinish = onFinish;
+        if(AudioSource != null)
+        {
+            AudioSource.Play();
+        }
     }
 
     public virtual void FinishTransition()
