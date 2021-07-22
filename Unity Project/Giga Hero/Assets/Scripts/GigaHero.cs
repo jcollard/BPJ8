@@ -44,7 +44,8 @@ namespace Assets.Scripts
 
             _gameState = new GameState(this, PlayScreen);
             OptionMenuButton.Engine = this;
-            OptionMenuButton.Action = ButtonAction.OpenOptionsScreen;
+            //OptionMenuButton.Action = ButtonAction.OpenOptionsScreen;
+            OptionMenuButton.Action = (engine) => ActionResult.LEVEL_UP;
 
             SetActiveScreen(_gameState);
 

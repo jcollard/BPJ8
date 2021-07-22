@@ -4,24 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Transition : MonoBehaviour
+public class TransitionHalfway : Transition
 {
+    private bool isTransitioned = false;
 
-    public float endTime, startTime;
-    public float duration = 5.0F;
-    public Vector3 endScale = new Vector3(1, 1, 1);
-    public Vector3 startScale = new Vector3(0.25F, 0.25F, 0.25F);
-    public Animator FrontLayerAnimator;
-    public RuntimeAnimatorController NextController;
-    public AudioSource AudioSource;
-    protected Action<object> _onFinish;
-
-    public void Start()
-    {
-        OptionsMenu.AddSFX(AudioSource);
-    }
-
-    public virtual void Update()
+    public override void Update()
     {
         if (Time.time > endTime)
         {
@@ -30,11 +17,17 @@ public class Transition : MonoBehaviour
         }
 
         float percentage = (Time.time - startTime) / duration;
+        if(percentage >= 0.5 && isTransitioned == false)
+        {
+            isTransitioned = true;
+            _onFinish.Invoke(null);
+        }
         transform.localScale = Vector3.Lerp(startScale, endScale, percentage);
     }
 
-    public virtual void StartTransition(Action<object> onFinish)
+    public override void StartTransition(Action<object> onFinish)
     {
+        isTransitioned = false;
         startTime = Time.time;
         endTime = Time.time + duration;
         this.transform.position = new Vector3(0, 0, this.transform.position.z);
@@ -46,11 +39,10 @@ public class Transition : MonoBehaviour
         }
     }
 
-    public virtual void FinishTransition()
+    public override void FinishTransition()
     {
         FrontLayerAnimator.runtimeAnimatorController = NextController;
         this.gameObject.SetActive(false);
-        _onFinish.Invoke(null);
     }
 
 }
