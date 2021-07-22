@@ -21,7 +21,7 @@ namespace Assets.Scripts
         private readonly int MAX_SATURATION = 100;
         private int _energy = 60;
         private readonly int MAX_ENERGY = 60;
-        private readonly int EVOLVE_AT = 1000;
+        private readonly int EVOLVE_AT = 900; // 15 full workouts before food
         private Food _food = null;
 
         public Teen()
@@ -37,6 +37,7 @@ namespace Assets.Scripts
             _nutrition = previous.Nutrition;
             _saturation = previous.Saturation;
             _energy = previous.Energy;
+            EVOLVE_AT += _dex + _str + _int;
         }
 
         public override ActionResult Poke()
@@ -64,6 +65,7 @@ namespace Assets.Scripts
         {
             base.Tick();
 
+            Debug.Log(_str + _dex + _int);
             if(_str + _dex + _int >= EVOLVE_AT)
             {
                 return ActionResult.LEVEL_UP;
@@ -94,6 +96,11 @@ namespace Assets.Scripts
                 Idle();
             }
 
+            if(_saturation <= 0)
+            {
+                _nutrition--;
+            }
+
             _saturation = Mathf.Clamp(_saturation, 0, MAX_SATURATION);
             _nutrition = Mathf.Clamp(_nutrition, 0, MAX_NUTRITION);
             _energy = Mathf.Clamp(_energy, 0, MAX_ENERGY);
@@ -103,7 +110,7 @@ namespace Assets.Scripts
 
         private void Idle()
         {
-            if (_saturation > 0) // Convert saturation to energy
+            if (_saturation > 0 && _energy < MAX_ENERGY) // Convert saturation to energy
             {
                 _saturation--;
                 _energy++;
@@ -123,9 +130,13 @@ namespace Assets.Scripts
                 _state = TeenState.IDLE;
                 return;
             }
-            _str += _food.STR;
-            _dex += _food.DEX;
-            _int += _food.INT;
+            if (Age % 12 == 0)
+            {
+                //Only increase stats every 8th saturation tick.
+                _str += _food.STR;
+                _dex += _food.DEX;
+                _int += _food.INT;
+            }
             _nutrition += _food.NUTRITION;
             
         }
@@ -206,7 +217,7 @@ namespace Assets.Scripts
         {
             int maxStat = Mathf.Max(_str, _dex, _int, 200);
             return $@"
-AGE:BABY
+AGE:TEEN
 {StatusHelper.Draw("ENG", _energy, MAX_ENERGY, 6)}
 {StatusHelper.Draw("NTR", _nutrition, MAX_NUTRITION, 6)}
 {StatusHelper.Draw("SAT", _saturation, MAX_SATURATION, 6)}
