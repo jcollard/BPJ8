@@ -28,7 +28,7 @@ namespace Assets.Scripts
         public override ActionResult Tick()
         {
             base.Tick();
-            if (Age % 5 == 0)
+            if (Age % 3 == 0)
             {
                 return Poke();
             }

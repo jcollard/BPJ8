@@ -19,7 +19,8 @@ namespace Assets.Scripts
             SetActions(screen);
         }
 
-        public int TicksPerMinute = 60;
+        public readonly int DEFAULT_SPEED = 30;
+        public int TicksPerMinute = 30;
         public float lastTick;
 
         public ActionMenu ActionMenu;
@@ -53,8 +54,9 @@ namespace Assets.Scripts
 
         private void Update()
         {
-            float nextTick = lastTick + (TicksPerMinute/60);
-            if(Time.time > nextTick)
+
+            float nextTick = TicksPerMinute > 0 ? lastTick + (60F / (float)TicksPerMinute) : float.PositiveInfinity;
+            if(TicksPerMinute > 0 && Time.time > nextTick)
             {
                 HandleResult(GameState.Tick());
                 lastTick = Time.time;

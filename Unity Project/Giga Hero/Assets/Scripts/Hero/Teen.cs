@@ -65,7 +65,6 @@ namespace Assets.Scripts
         {
             base.Tick();
 
-            Debug.Log(_str + _dex + _int);
             if(_str + _dex + _int >= EVOLVE_AT)
             {
                 return ActionResult.LEVEL_UP;
@@ -130,9 +129,9 @@ namespace Assets.Scripts
                 _state = TeenState.IDLE;
                 return;
             }
-            if (Age % 12 == 0)
+            if (Age % 6 == 0)
             {
-                //Only increase stats every 8th saturation tick.
+                //Only increase stats every other saturation tick.
                 _str += _food.STR;
                 _dex += _food.DEX;
                 _int += _food.INT;
