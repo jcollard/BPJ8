@@ -40,10 +40,14 @@ namespace Assets.Scripts
         public void LevelUp()
         {
             Hero nextHero = _hero.LevelUp(this);
+            
             if (nextHero != _hero)
             {
                 Transition t = _hero.GetTransition();
-                t.StartTransition((_) => this._hero = nextHero);
+                if (!t.gameObject.activeInHierarchy)
+                {
+                    t.StartTransition((_) => this._hero = nextHero);
+                }
             }
 
         }
@@ -65,7 +69,7 @@ namespace Assets.Scripts
 
         public Func<GigaHero, ActionResult> GetActionC()
         {
-            return ButtonAction.Poke;
+            return ButtonAction.OpenStatusScreen;
         }
 
         public GameObject GetGameObject()

@@ -1,9 +1,13 @@
+using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectLookup : MonoBehaviour
 {
+
+    public StatusScreen _StatusScreen;
+    public static StatusScreen StatusScreen;
 
     public Transition EggToBabyTransition;
     public RuntimeAnimatorController _EggAnimatorController;
@@ -44,6 +48,8 @@ public class ObjectLookup : MonoBehaviour
         TelepathAnimatorController = _TelepathAnimatorController;
         AcrobatAnimatorController = _AcrobatAnimatorController;
         HulkAnimatorController = _HulkAnimatorController;
+
+        StatusScreen = _StatusScreen;
     }
 
 

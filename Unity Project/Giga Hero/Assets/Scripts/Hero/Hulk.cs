@@ -10,5 +10,11 @@ namespace Assets.Scripts
             return ObjectLookup.HulkAnimatorController;
         }
 
+        public override string Status()
+        {
+            return @" CREDIBLE
+   BULK";
+        }
+
     }
 }

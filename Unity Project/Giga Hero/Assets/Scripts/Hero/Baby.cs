@@ -13,18 +13,23 @@ namespace Assets.Scripts
 
         private BabyState _state = BabyState.PACIFIER;
         private bool isPacifier = false;
-        private int _dex = 0;
+        private int _dex = Random.Range(0, 100);
         public int Dex { get { return _dex; } }
-        private int _str = 0;
+        private int _str = Random.Range(0, 100);
         public int Str { get { return _str; } }
-        private int _int = 0;
+        private int _int = Random.Range(0, 100);
         public int Int {  get { return _int; } }
         private int _nutrition = 0;
-        private int _saturation = 80;
-        private int _maxSaturation = 100;
+        public int Nutrition { get { return _nutrition; } }
+        private readonly int MAX_NUTRITION = 100;
+        private int _saturation = 60;
+        public int Saturation {  get { return _saturation;  } }
+        private readonly int MAX_SATURATION = 100;
         private int _energy = 60;
+        public int Energy {  get { return _energy; } }
+        private readonly int MAX_ENERGY = 60;
         private int _sleep = 0;
-        private int SLEEP_TICKS = 60;
+        private Hero leveledUp;
 
         public Baby()
         {
@@ -38,17 +43,33 @@ namespace Assets.Scripts
         public override ActionResult Poke()
         {
             isPacifier = !isPacifier;
+            if (_sleep > 0)
+            {
+                //TODO: If the baby is sleeping, wake it up and lose points instead of gaining them.
+                //TODO: Baby Woke state. Pacifier will make baby "heal" faster. When energy below 0, hurt baby stats
+                _sleep = 0;
+            }
             return ActionResult.NOTHING;
         }
 
         public override Hero LevelUp(GameState state)
         {
-            return new Teen(this);
+            if (leveledUp == null)
+            {
+                leveledUp = new Teen(this);
+            }
+            return leveledUp;
         }
 
         public override ActionResult Tick()
         {
             base.Tick();
+            if(_nutrition >= MAX_NUTRITION)
+            {
+                //When the baby has enough nutrients, level it up!
+                return ActionResult.LEVEL_UP;
+            }
+
             if(_sleep > 0) //If the baby is sleeping
             {
                 //TODO: If the baby is hungry, they shouldn't restore energy
@@ -61,20 +82,27 @@ namespace Assets.Scripts
                 _saturation = Mathf.Max(0, _saturation);
                 if (_saturation <= 0)
                 {
+                    // If your saturation is at 0, lose nutrition and lose stats proportional to their values
                     _nutrition--;
+                    _str -= _str/MAX_ENERGY;
+                    _int -= _int/MAX_ENERGY;
+                    _dex -= _dex/MAX_ENERGY;
                     _nutrition = Mathf.Max(0, _nutrition);
                 }
             } else // Transition to sleeping
             {
-                _sleep = SLEEP_TICKS;
+                _sleep = MAX_ENERGY;
             }
+
+
+
             checkState();
             return ActionResult.NOTHING;
         }
 
         private void checkState()
         {
-            if (_saturation > _maxSaturation)
+            if (_saturation > MAX_SATURATION)
             {
                 _state = BabyState.CRYING;
             }
@@ -95,7 +123,6 @@ namespace Assets.Scripts
             }
             
         }
-
 
         public override Transition GetTransition()
         {
@@ -118,11 +145,38 @@ namespace Assets.Scripts
 
         internal override ActionResult Feed(Food food)
         {
-            _str += food.STR;
-            _dex += food.DEX;
-            _int += food.INT;
-            _nutrition += food.NUTRITION;
+            
             _saturation += food.SATURATION;
+            if (_saturation > MAX_NUTRITION)
+            {
+                //TODO: If you over feed the baby, over saturate it and lose stats rather than gain them
+                _saturation = 112;
+                _sleep = 0;
+                _str = Mathf.Max(0,_str - food.STR * 3);
+                _dex = Mathf.Max(0,_dex - food.DEX * 3);
+                _int = Mathf.Max(0,_int - food.INT * 3);
+                _nutrition = Mathf.Max(0, _nutrition/4);
+                checkState();
+                return ActionResult.NOTHING;
+            }
+            if (_sleep > 0)
+            {
+                //TODO: If the baby is sleeping, wake it up and lose points instead of gaining them.
+                //TODO: Baby Woke state. Requires pacifier to go back to sleep. When energy below 0, hurt baby stats
+                _sleep = 0;
+                _str -= food.STR;
+                _dex -= food.DEX;
+                _int -= food.INT;
+                _nutrition -= food.NUTRITION;
+            }
+            else
+            {
+                _str += food.STR;
+                _dex += food.DEX;
+                _int += food.INT;
+                _nutrition += food.NUTRITION;
+            }
+            
             checkState();
             return ActionResult.NOTHING;
         }
@@ -131,6 +185,20 @@ namespace Assets.Scripts
         {
             //TODO: Make baby cry
             return ActionResult.NOTHING;
+        }
+
+        public override string Status()
+        {
+            int maxStat = Mathf.Max(_str, _dex, _int, 200);
+            return $@"
+AGE:BABY
+{StatusHelper.Draw("ENG", _energy, MAX_ENERGY, 6)}
+{StatusHelper.Draw("NTR", _nutrition, MAX_NUTRITION, 6)}
+{StatusHelper.Draw("SAT", _saturation, MAX_SATURATION, 6)}
+{StatusHelper.Draw("STR", _str, maxStat, 6)}
+{StatusHelper.Draw("SPD", _dex, maxStat, 6)}
+{StatusHelper.Draw("INT", _int, maxStat, 6)}
+                ".Trim();
         }
     }
 }

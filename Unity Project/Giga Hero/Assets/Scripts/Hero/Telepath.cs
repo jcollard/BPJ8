@@ -9,5 +9,10 @@ namespace Assets.Scripts
         {
             return ObjectLookup.TelepathAnimatorController;
         }
+
+        public override string Status()
+        {
+            return "PROFESSOR\nWHY";
+        }
     }
 }

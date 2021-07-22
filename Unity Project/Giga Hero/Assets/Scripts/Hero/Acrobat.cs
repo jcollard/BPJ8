@@ -9,5 +9,10 @@ namespace Assets.Scripts
         {
             return ObjectLookup.AcrobatAnimatorController;
         }
+
+        public override string Status()
+        {
+            return @"ALIVE POOL";
+        }
     }
 }

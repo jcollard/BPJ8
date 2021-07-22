@@ -67,5 +67,11 @@ namespace Assets.Scripts
         {
             return Poke();
         }
+
+        public override string Status()
+        {
+            return
+                "AGE:EGG";
+        }
     }
 }

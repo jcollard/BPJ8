@@ -10,6 +10,8 @@ namespace Assets.Scripts
         public static readonly Func<GigaHero, ActionResult> Poke = (engine) => engine.GameState.Poke();
         public static readonly Func<GigaHero, ActionResult> OpenActionMenu = ActionResult.Nothing((engine) => engine.ActionMenu.Activate(engine));
         public static readonly Func<GigaHero, ActionResult> Nothing = (engine) => ActionResult.NOTHING;
+        public static readonly Func<GigaHero, ActionResult> OpenStatusScreen = ActionResult.Nothing((engine) => ObjectLookup.StatusScreen.Activate(engine));
+        public static readonly Func<GigaHero, ActionResult> OpenMainScreen = ActionResult.Nothing((engine) => engine.SetActiveScreen(engine.GameState));
     }
 
 }

@@ -38,7 +38,7 @@ namespace Assets.Scripts
         public int INT { get { return _int; } }
         private int _nutrition = 0;
         public int NUTRITION {  get { return _nutrition;  } }
-        public int SATURATION {  get { return _str + _dex + _int; } }
+        public int SATURATION {  get { return (_str + _dex + _int) * 2; } }
 
         public Food(string name)
         {

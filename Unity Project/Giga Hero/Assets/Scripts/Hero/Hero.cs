@@ -39,8 +39,24 @@ namespace Assets.Scripts
             return ActionResult.NOTHING;
         }
 
+        public abstract string Status();
+
     }
 
     
+    public class StatusHelper
+    {
+        public static string Draw(string word, int value, int max, int length)
+        {
+            float percent = Mathf.Min(1.0F, ((float)value) / ((float)max)); ;
+            int stars = Mathf.RoundToInt(percent * length);
+            return word + ":" + "".PadLeft(stars, '*');
+        }
+
+        public static string Draw(string word, int value, int max)
+        {
+            return Draw(word, value, max, 6);
+        }
+    }
     
 }
