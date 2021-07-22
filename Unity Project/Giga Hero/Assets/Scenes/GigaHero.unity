@@ -2004,7 +2004,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'SPEED: 1x'
+  m_Text: 'SPEED: 2x'
 --- !u!222 &986541006
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2524,7 +2524,7 @@ MonoBehaviour:
   - {fileID: 327050126}
   - {fileID: 1148665421}
   - {fileID: 905382404}
-  Speed: 1
+  Speed: 2
   SFX: 0.5
   Music: 0.5
   GameSpeed: {fileID: 986541005}
