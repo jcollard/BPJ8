@@ -13,6 +13,7 @@ namespace Assets.Scripts
         void Start()
         {
             INSTANCE = this;
+            OptionsMenu.AddSFX(Notification);
         }
     }
 }
