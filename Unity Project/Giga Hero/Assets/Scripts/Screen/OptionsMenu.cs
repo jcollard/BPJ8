@@ -37,6 +37,12 @@ namespace Assets.Scripts
         public Text Volume;
         public AudioSource MusicAudioSource;
 
+        internal void Close(GigaHero engine)
+        {
+            engine.TicksPerMinute = engine.DEFAULT_SPEED * Speed;
+            engine.GameState.Activate(engine);
+        }
+
         private OptionTypeSelector _selected;
         private int ix = 0;
 
@@ -73,8 +79,7 @@ namespace Assets.Scripts
             {
                 if (_selected.OptionType == OptionsMenuType.BACK)
                 {
-                    engine.TicksPerMinute = engine.DEFAULT_SPEED * Speed;
-                    engine.GameState.Activate(engine);
+                    Close(engine);
                     return;
                 }
                 if (_selected.OptionType == OptionsMenuType.MUSIC)
@@ -119,8 +124,7 @@ namespace Assets.Scripts
             {
                 if (_selected.OptionType == OptionsMenuType.BACK)
                 {
-                    engine.TicksPerMinute = engine.DEFAULT_SPEED * Speed;
-                    engine.GameState.Activate(engine);
+                    Close(engine);
                     return;
                 }
                 if (_selected.OptionType == OptionsMenuType.MUSIC)

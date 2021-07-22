@@ -19,12 +19,13 @@ namespace Assets.Scripts
             SetActions(screen);
         }
 
-        public readonly int DEFAULT_SPEED = 30;
-        public int TicksPerMinute = 30;
+        public readonly int DEFAULT_SPEED = 15;
+        public int TicksPerMinute = 60;
         public float lastTick;
 
         public ActionMenu ActionMenu;
         public GigaButton[] buttons;
+        public GigaButton OptionMenuButton;
 
         public static readonly ISet<GameObject> Screens = new HashSet<GameObject>();
 
@@ -42,6 +43,9 @@ namespace Assets.Scripts
             }
 
             _gameState = new GameState(this, PlayScreen);
+            OptionMenuButton.Engine = this;
+            OptionMenuButton.Action = ButtonAction.OpenOptionsScreen;
+
             SetActiveScreen(_gameState);
 
         }
