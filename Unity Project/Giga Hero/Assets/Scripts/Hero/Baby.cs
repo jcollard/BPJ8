@@ -30,6 +30,7 @@ namespace Assets.Scripts
         private readonly int MAX_ENERGY = 60;
         private int _sleep = 0;
         private Hero leveledUp;
+        private float _lastNotified = 0;
 
         public Baby()
         {
@@ -97,6 +98,19 @@ namespace Assets.Scripts
 
 
             checkState();
+
+            if (_state == BabyState.CRYING)
+            {
+                if (Time.time > _lastNotified + 5f)
+                {
+                    SoundBoard.INSTANCE.Notification.Play();
+                    _lastNotified = Time.time + 5f;
+                }
+            } else
+            {
+                _lastNotified = 0;
+            }
+
             return ActionResult.NOTHING;
         }
 
