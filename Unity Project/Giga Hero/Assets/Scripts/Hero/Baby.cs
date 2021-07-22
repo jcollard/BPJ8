@@ -14,8 +14,11 @@ namespace Assets.Scripts
         private BabyState _state = BabyState.PACIFIER;
         private bool isPacifier = false;
         private int _dex = 0;
+        public int Dex { get { return _dex; } }
         private int _str = 0;
+        public int Str { get { return _str; } }
         private int _int = 0;
+        public int Int {  get { return _int; } }
         private int _nutrition = 0;
         private int _saturation = 80;
         private int _maxSaturation = 100;

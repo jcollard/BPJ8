@@ -30,6 +30,9 @@ namespace Assets.Scripts
 
         public Teen(Baby previous) : base(previous)
         {
+            _dex = previous.Dex;
+            _str = previous.Str;
+            _int = previous.Int;
         }
 
         public override ActionResult Poke()
@@ -40,7 +43,19 @@ namespace Assets.Scripts
 
         public override Hero LevelUp(GameState state)
         {
-            return this;
+            Debug.Log("STR: " + _str);
+            Debug.Log("DEX: " + _dex);
+            Debug.Log("INT: " + _int);
+            if (_str >= _dex && _str >= _int)
+            {
+                return new Hulk();
+            } if (_dex >= _str && _dex >= _int)
+            {
+                return new Acrobat();
+            } else // _int is greatest?
+            {
+                return new Telepath();
+            }
         }
 
         public override ActionResult Tick()
@@ -63,7 +78,7 @@ namespace Assets.Scripts
         public override Transition GetTransition()
         {
             //TODO
-            return null;
+            return ObjectLookup.BabyToTeen;
         }
 
         public override void HandleAnimator(Animator animator, GameState gameState)

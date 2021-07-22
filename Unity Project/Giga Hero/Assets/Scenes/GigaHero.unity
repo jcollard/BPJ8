@@ -1155,6 +1155,12 @@ MonoBehaviour:
     type: 2}
   _TeenAnimatorController: {fileID: 9100000, guid: 39544613708e9af4eb041fc45de865f6,
     type: 2}
+  _HulkAnimatorController: {fileID: 9100000, guid: e65b1c98f1a164c16847ef5596043cc6,
+    type: 2}
+  _AcrobatAnimatorController: {fileID: 9100000, guid: de6ae4da74980453ab16eab541562aca,
+    type: 2}
+  _TelepathAnimatorController: {fileID: 9100000, guid: 8f1af69a0f8e0472d9669bd0a5284b6f,
+    type: 2}
 --- !u!4 &844888355
 Transform:
   m_ObjectHideFlags: 0

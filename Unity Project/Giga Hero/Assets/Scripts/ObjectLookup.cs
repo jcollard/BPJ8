@@ -19,6 +19,15 @@ public class ObjectLookup : MonoBehaviour
     public RuntimeAnimatorController _TeenAnimatorController;
     public static RuntimeAnimatorController TeenAnimatorController;
 
+    public RuntimeAnimatorController _HulkAnimatorController;
+    public static RuntimeAnimatorController HulkAnimatorController;
+
+    public RuntimeAnimatorController _AcrobatAnimatorController;
+    public static RuntimeAnimatorController AcrobatAnimatorController;
+
+    public RuntimeAnimatorController _TelepathAnimatorController;
+    public static RuntimeAnimatorController TelepathAnimatorController;
+
     public void Start()
     {
         
@@ -31,6 +40,10 @@ public class ObjectLookup : MonoBehaviour
         BabyToTeen = BabyToTeenTransition;
 
         TeenAnimatorController = _TeenAnimatorController;
+
+        TelepathAnimatorController = _TelepathAnimatorController;
+        AcrobatAnimatorController = _AcrobatAnimatorController;
+        HulkAnimatorController = _HulkAnimatorController;
     }
 
 
