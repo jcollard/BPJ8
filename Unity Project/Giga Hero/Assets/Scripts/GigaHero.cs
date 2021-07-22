@@ -24,10 +24,7 @@ namespace Assets.Scripts
         public float lastTick;
 
         public ActionMenu ActionMenu;
-
         public GigaButton[] buttons;
-
-        public GigaButton LevelUpButton;
 
         public static readonly ISet<GameObject> Screens = new HashSet<GameObject>();
 
@@ -46,9 +43,6 @@ namespace Assets.Scripts
 
             _gameState = new GameState(this, PlayScreen);
             SetActiveScreen(_gameState);
-
-            LevelUpButton.Engine = this;
-            LevelUpButton.Action = (engine) => ActionResult.LEVEL_UP;
 
         }
 
