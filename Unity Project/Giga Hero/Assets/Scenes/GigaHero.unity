@@ -1391,6 +1391,7 @@ MonoBehaviour:
     type: 2}
   _TelepathAnimatorController: {fileID: 9100000, guid: 8f1af69a0f8e0472d9669bd0a5284b6f,
     type: 2}
+  _OptionsMenu: {fileID: 1225124892}
 --- !u!4 &844888355
 Transform:
   m_ObjectHideFlags: 0

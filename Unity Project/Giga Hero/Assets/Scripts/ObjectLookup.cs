@@ -32,6 +32,8 @@ public class ObjectLookup : MonoBehaviour
     public RuntimeAnimatorController _TelepathAnimatorController;
     public static RuntimeAnimatorController TelepathAnimatorController;
 
+    public OptionsMenu _OptionsMenu;
+
     public void Start()
     {
         
@@ -50,6 +52,7 @@ public class ObjectLookup : MonoBehaviour
         HulkAnimatorController = _HulkAnimatorController;
 
         StatusScreen = _StatusScreen;
+        OptionsMenu.INSTANCE = _OptionsMenu;
     }
 
 
