@@ -21,7 +21,7 @@ namespace Assets.Scripts
         private readonly int MAX_SATURATION = 100;
         private int _energy = 60;
         private readonly int MAX_ENERGY = 60;
-        private readonly int EVOLVE_AT = 900; // 15 full workouts before food
+        private readonly int EVOLVE_AT = 500; // 15 full workouts before food
         private Food _food = null;
 
         public Teen()
