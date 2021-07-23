@@ -126,6 +126,7 @@ namespace Assets.Scripts
             }
             else if (_saturation <= 25)
             {
+                
                 _state = BabyState.HUNGRY;
             } else if (_sleep > 0)
             {
@@ -164,6 +165,7 @@ namespace Assets.Scripts
             if (_saturation > MAX_NUTRITION)
             {
                 //TODO: If you over feed the baby, over saturate it and lose stats rather than gain them
+                SoundBoard.INSTANCE.NoNo.Play();
                 _saturation = 112;
                 _sleep = 0;
                 _str = Mathf.Max(0,_str - food.STR * 3);
@@ -175,16 +177,18 @@ namespace Assets.Scripts
             }
             if (_sleep > 0)
             {
+                SoundBoard.INSTANCE.NoNo.Play();
                 //TODO: If the baby is sleeping, wake it up and lose points instead of gaining them.
                 //TODO: Baby Woke state. Requires pacifier to go back to sleep. When energy below 0, hurt baby stats
-                _sleep = 0;
-                _str -= food.STR;
-                _dex -= food.DEX;
-                _int -= food.INT;
-                _nutrition -= food.NUTRITION;
+                //_sleep = 0;
+                //_str -= food.STR;
+                //_dex -= food.DEX;
+                //_int -= food.INT;
+                //_nutrition -= food.NUTRITION;
             }
             else
             {
+                SoundBoard.INSTANCE.PowerUp.Play();
                 _str += food.STR;
                 _dex += food.DEX;
                 _int += food.INT;
@@ -198,6 +202,7 @@ namespace Assets.Scripts
         public override ActionResult Train(Training training)
         {
             //TODO: Make baby cry
+            SoundBoard.INSTANCE.NoNo.Play();
             return ActionResult.NOTHING;
         }
 

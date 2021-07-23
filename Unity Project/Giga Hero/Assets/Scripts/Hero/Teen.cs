@@ -95,6 +95,11 @@ namespace Assets.Scripts
                 Idle();
             }
 
+            if(_saturation > _nutrition)
+            {
+                _saturation--;
+            }
+
             if(_saturation <= 0)
             {
                 _nutrition--;
