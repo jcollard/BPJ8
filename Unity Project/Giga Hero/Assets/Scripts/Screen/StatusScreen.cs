@@ -17,12 +17,12 @@ namespace Assets.Scripts
             GigaHero.Screens.Add(this.gameObject);
         }
 
-        public void Update()
+        public virtual void Update()
         {
             textArea.text = engine.GameState.Hero.Status();
         }
 
-        public void Activate(GigaHero engine)
+        public virtual void Activate(GigaHero engine)
         {
             textArea.text = engine.GameState.Hero.Status();
             engine.SetActiveScreen(this);

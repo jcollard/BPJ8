@@ -33,6 +33,7 @@ public class ObjectLookup : MonoBehaviour
     public static RuntimeAnimatorController TelepathAnimatorController;
 
     public OptionsMenu _OptionsMenu;
+    public CreditsScreen CreditsScreen;
 
     public void Start()
     {
@@ -53,6 +54,7 @@ public class ObjectLookup : MonoBehaviour
 
         StatusScreen = _StatusScreen;
         OptionsMenu.INSTANCE = _OptionsMenu;
+        CreditsScreen.INSTANCE = CreditsScreen;
     }
 
 

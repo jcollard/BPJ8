@@ -26,6 +26,7 @@ namespace Assets.Scripts
         public ActionMenu ActionMenu;
         public GigaButton[] buttons;
         public GigaButton OptionMenuButton;
+        public GigaButton CreditsButton;
 
         public static readonly ISet<GameObject> Screens = new HashSet<GameObject>();
 
@@ -47,6 +48,9 @@ namespace Assets.Scripts
             
             OptionMenuButton.Action = (engine) => ActionResult.LEVEL_UP;
             OptionMenuButton.Action = ButtonAction.OpenOptionsScreen;
+
+            CreditsButton.Engine = this;
+            CreditsButton.Action = ButtonAction.OpenCreditsScreen;
 
             SetActiveScreen(_gameState);
 
