@@ -21,7 +21,7 @@ namespace Assets.Scripts
         public int Int {  get { return _int; } }
         private int _nutrition = 0;
         public int Nutrition { get { return _nutrition; } }
-        private readonly int MAX_NUTRITION = 100;
+        private readonly int MAX_NUTRITION = 135;
         private int _saturation = 60;
         public int Saturation {  get { return _saturation;  } }
         private readonly int MAX_SATURATION = 100;
@@ -85,9 +85,9 @@ namespace Assets.Scripts
                 {
                     // If your saturation is at 0, lose nutrition and lose stats proportional to their values
                     _nutrition--;
-                    _str -= _str/MAX_ENERGY;
-                    _int -= _int/MAX_ENERGY;
-                    _dex -= _dex/MAX_ENERGY;
+                    //_str -= _str/MAX_ENERGY;
+                    //_int -= _int/MAX_ENERGY;
+                    //_dex -= _dex/MAX_ENERGY;
                     _nutrition = Mathf.Max(0, _nutrition);
                 }
             } else // Transition to sleeping
@@ -168,10 +168,11 @@ namespace Assets.Scripts
                 SoundBoard.INSTANCE.NoNo.Play();
                 _saturation = 112;
                 _sleep = 0;
-                _str = Mathf.Max(0,_str - food.STR * 3);
-                _dex = Mathf.Max(0,_dex - food.DEX * 3);
-                _int = Mathf.Max(0,_int - food.INT * 3);
-                _nutrition = Mathf.Max(0, _nutrition/4);
+                //TODO: Make it bad?
+                //_str = Mathf.Max(0,_str - food.STR * 3);
+                //_dex = Mathf.Max(0,_dex - food.DEX * 3);
+                //_int = Mathf.Max(0,_int - food.INT * 3);
+                //_nutrition = Mathf.Max(0, _nutrition/4);
                 checkState();
                 return ActionResult.NOTHING;
             }
